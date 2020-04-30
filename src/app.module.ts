@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { VacancyModule } from './modules/vacancy/vacancy.module';
-import { Vacancy } from './entites/vacancy.entity';
+import { PostModule } from './modules/post/post.module';
+import { PostEntity } from './entites/post.entity';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core'
 import { LoggingInterceptor } from './common/logging.interceptor'
 import { HttpExceptionFilter } from './common/http-exception.filter'
@@ -15,14 +15,14 @@ const DATABASE_CONFIGS: TypeOrmModuleOptions = {
   username: 'postgres',
   password: 'postgres',
   database: 'vzlet',
-  entities: [Vacancy],
+  entities: [PostEntity],
   synchronize: true,
 };
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(DATABASE_CONFIGS),
-    VacancyModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [
