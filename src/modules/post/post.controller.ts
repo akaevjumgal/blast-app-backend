@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { PostService } from './post.service'
 import { PostCreateDto, PostDto } from '../../models/post.model'
 import { ApiTags, ApiResponse } from '@nestjs/swagger'
+import { AuthGuard } from '@nestjs/passport'
 
 const TAG = 'posts'
 
@@ -12,6 +13,7 @@ export class PostController {
   constructor(public service: PostService) {
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiResponse({
     status: HttpStatus.OK,
     type: [PostDto]

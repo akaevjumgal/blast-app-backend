@@ -12,7 +12,7 @@ export class PostService {
   ) {}
 
   async findAll(): Promise<PostEntity[]> {
-    return await this.repository.find()
+    return this.repository.find()
   }
 
   async findOne(id: number): Promise<PostEntity> {
@@ -26,14 +26,14 @@ export class PostService {
   }
 
   async saveOne(post: PostCreateDto): Promise<PostEntity> {
-    return await this.repository.save(post)
+    return this.repository.save(post)
   }
 
-  async updateOne(id: number, post: PostCreateDto): Promise<void> {
-    await this.repository.update(id, post)
+  async updateOne(id: number, post: PostCreateDto) {
+    return this.repository.update(id, post)
   }
 
-  async deleteOne(id: number): Promise<void> {
-    await this.repository.delete(id)
+  async deleteOne(id: number) {
+    return this.repository.delete(id)
   }
 }

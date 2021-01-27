@@ -7,6 +7,10 @@ import { PostEntity } from './entites/post.entity';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core'
 import { LoggingInterceptor } from './common/logging.interceptor'
 import { HttpExceptionFilter } from './common/http-exception.filter'
+import { ConfigModule } from '@nestjs/config'
+import { AuthModule } from './modules/auth/auth.module'
+import { UsersModule } from './modules/users/users.module'
+import { UserEntity } from './entites/user.entity'
 
 const DATABASE_CONFIGS: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -15,7 +19,7 @@ const DATABASE_CONFIGS: TypeOrmModuleOptions = {
   username: 'postgres',
   password: 'postgres',
   database: 'vzlet',
-  entities: [PostEntity],
+  entities: [PostEntity, UserEntity],
   synchronize: true,
 };
 
@@ -23,6 +27,11 @@ const DATABASE_CONFIGS: TypeOrmModuleOptions = {
   imports: [
     TypeOrmModule.forRoot(DATABASE_CONFIGS),
     PostModule,
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [
